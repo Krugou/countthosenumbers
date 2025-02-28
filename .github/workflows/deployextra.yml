@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy extra folder content to Pages
+name: Deploy to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -22,8 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -31,39 +30,36 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: install dependencies for extra folder
-        run: npm i
-        working-directory: extra
-      - name: get scores for github repository stats
-        run: |
-          npm run start
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
         env:
-          GITHUBTOKEN: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: extra
-      - name: Install frontend dependencies
-        run: npm i
-        working-directory: frontend
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+          VITE_FIREBASE_DATABASE_URL: ${{ secrets.VITE_FIREBASE_DATABASE_URL }}
 
-      - name: Generate frontend docs
-        run: npm run docs
-        continue-on-error: true
-        working-directory: frontend
-
-      - name: Install backend dependencies
-        run: npm i
-        working-directory: backend
-
-      - name: Generate backend docs
-        run: npm run docs
-        continue-on-error: true
-        working-directory: backend
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3.0.1
+        uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: './extra'
+          path: './dist'
+
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4.0.5
+        uses: actions/deploy-pages@v4

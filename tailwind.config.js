@@ -7,37 +7,48 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'heading': ['Inter', 'sans-serif'],
-        'body': ['Roboto', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
-        // Main brand colors
-        'main-orange': {
-          '50': '#fff7ed',
-          '100': '#ffedd5',
-          '200': '#fed7aa',
-          '300': '#fdba74',
-          '400': '#fb923c',
-          '500': '#f97316',
-          '600': '#ea580c',
-          '700': '#c2410c',
-          '800': '#9a3412',
-          '900': '#7c2d12',
-          '950': '#431407',
+        gray: {
+          900: '#111827',
+          800: '#1F2937',
+          700: '#374151',
+          600: '#4B5563',
+          500: '#6B7280',
+          400: '#9CA3AF',
+          300: '#D1D5DB',
+          200: '#E5E7EB',
+          100: '#F3F4F6',
         },
-        // Support colors for system feedback
-        'support': {
-          'success': '#4ade80',
-          'warning': '#facc15',
-          'error': '#f43f5e',
-          'info': '#38bdf8',
+        blue: {
+          700: '#1D4ED8',
+          600: '#2563EB',
+          500: '#3B82F6',
+          400: '#60A5FA',
         },
-        // Trend colors for visual hierarchy
-        'trend': {
-          'primary': '#3b82f6',
-          'secondary': '#8b5cf6',
-          'tertiary': '#ec4899',
+        green: {
+          700: '#15803D',
+          600: '#16A34A',
+          500: '#22C55E',
+          400: '#4ADE80',
         },
+        red: {
+          700: '#B91C1C',
+          600: '#DC2626',
+          500: '#EF4444',
+          400: '#F87171',
+        },
+        yellow: {
+          700: '#A16207',
+          600: '#CA8A04',
+          500: '#EAB308',
+          400: '#FACC15',
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.3s ease-out forwards',
+        'pulse-once': 'pulse 0.5s ease-out',
       },
     },
   },
