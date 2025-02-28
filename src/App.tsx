@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GameProvider } from './contexts/GameContext';
-import { GameScene } from './components/GameScene';
+import { WebGameDisplay } from './components/web/WebGameDisplay';
 import { GameControls } from './components/GameControls';
 import { Leaderboard } from './components/Leaderboard';
 import { useGameSettings } from './hooks/useGameSettings';
@@ -61,7 +61,7 @@ function App() {
 
             {/* Middle column - Game Scene */}
             <div className="lg:col-span-1 aspect-square">
-              <GameScene />
+              <WebGameDisplay />
             </div>
 
             {/* Right column - Leaderboard */}
