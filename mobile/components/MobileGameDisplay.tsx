@@ -39,10 +39,13 @@ export const MobileGameDisplay: React.FC = () => {
     </View>
   );
 
-  const renderControls = (onStart: () => void) => (
+  const renderControls = (onStart: () => void, onEnd: () => void) => (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button} onPress={onStart}>
         <Text style={styles.buttonText}>Start Game</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.button, { marginTop: 10 }]} onPress={onEnd}>
+        <Text style={styles.buttonText}>End Game</Text>
       </TouchableOpacity>
     </View>
   );

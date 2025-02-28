@@ -4,13 +4,16 @@
   "workspaces": [
     "web",
     "mobile",
-    "shared"
+    "shared",
+    "desktop"
   ],
   "scripts": {
     "web": "npm run dev --workspace=web",
     "mobile": "npm run start --workspace=mobile",
+    "desktop": "npm run tauri dev --workspace=desktop",
     "build:web": "npm run build --workspace=web",
-    "build:shared": "npm run build --workspace=shared"
+    "build:shared": "npm run build --workspace=shared",
+    "build:desktop": "npm run tauri build --workspace=desktop"
   },
   "dependencies": {
     "@react-spring/three": "^9.7.5",

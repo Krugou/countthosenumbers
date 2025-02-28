@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    @apply bg-gray-900 text-white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* Custom styles that aren't covered by Tailwind */
+@layer components {
+  .button-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition-colors;
+  }
+
+  .button-secondary {
+    @apply bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded transition-colors;
+  }
+
+  .input-primary {
+    @apply bg-gray-700 text-white rounded p-2 border-2 border-gray-600 focus:border-blue-400 focus:outline-none;
+  }
+
+  .card {
+    @apply bg-gray-800 rounded-lg shadow-lg p-4;
+  }
+}
+
+/* Game-specific animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-pulse-once {
+  animation: pulse 0.5s ease-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
