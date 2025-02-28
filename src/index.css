@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Roboto', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* Custom styles that aren't covered by Tailwind */
+@layer components {
+  .game-container {
+    @apply max-w-4xl mx-auto p-6 rounded-lg shadow-lg;
+  }
+
+  .number-display {
+    @apply text-6xl font-bold text-center text-main-orange-600 mb-8;
+  }
+
+  .button-primary {
+    @apply bg-main-orange-500 hover:bg-main-orange-600 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300;
+  }
+
+  .button-secondary {
+    @apply bg-trend-primary hover:bg-trend-primary/90 text-white font-bold py-2 px-4 rounded-md transition-colors duration-300;
+  }
+}

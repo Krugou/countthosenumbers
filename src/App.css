@@ -1,0 +1,34 @@
+/* Minimal reset and base styles */
+#root {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Game-specific animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Focus styles that work well with Tailwind */
+input:focus,
+button:focus {
+  outline: 2px solid theme('colors.main-orange.400');
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .game-container {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+}
