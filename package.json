@@ -1,6 +1,7 @@
 {
   "name": "countthosenumbers",
   "private": true,
+  "type": "module",
   "workspaces": [
     "web",
     "mobile",

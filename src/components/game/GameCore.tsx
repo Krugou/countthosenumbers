@@ -1,5 +1,5 @@
 import React from 'react';
-import { useGame } from '../../contexts/GameContext';
+import { useGame } from '../../hooks/useGame';
 import { useGameSettings } from '../../hooks/useGameSettings';
 import { useSound } from '../../utils/sound';
 

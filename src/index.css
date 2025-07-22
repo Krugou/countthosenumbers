@@ -41,6 +41,24 @@
   .card {
     @apply bg-gray-800 rounded-lg shadow-lg p-4;
   }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Focus visible for keyboard navigation */
+  .focus-visible {
+    @apply outline-2 outline-offset-2 outline-blue-500;
+  }
 }
 
 /* Game-specific animations */

@@ -1,6 +1,8 @@
-import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import React, { createContext, useReducer, useEffect, ReactNode } from 'react';
 import { GameState, GameConfig } from '../types/game';
 import { useLeaderboard } from '../hooks/useLeaderboard';
+import { generateSequence, calculateScore } from '../utils/gameUtils';
+import { gameLogger } from '../utils/logger';
 
 interface GameContextType {
   state: GameState;
@@ -36,7 +38,7 @@ type GameAction =
 const gameReducer = (state: GameState, action: GameAction): GameState => {
   switch (action.type) {
     case 'START_GAME': {
-      console.log('Starting new game with config:', action.config);
+      gameLogger.start(action.config);
       const sequence = generateSequence(action.config);
       return {
         ...initialState,
@@ -51,7 +53,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     }
     case 'SHOW_NEXT_NUMBER': {
       if (state.currentIndex >= state.sequence.length - 1) {
-        console.log('Finished showing sequence, waiting for guess');
+        gameLogger.debug('Finished showing sequence, waiting for guess');
         return {
           ...state,
           showingSequence: false,
@@ -66,14 +68,10 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
     }
     case 'SUBMIT_ANSWER': {
       const isCorrect = state.sequenceSum === action.answer;
-      console.log('Submitting answer:', {
-        answer: action.answer,
-        correct: state.sequenceSum,
-        isCorrect
-      });
+      gameLogger.submit(action.answer, state.sequenceSum, isCorrect);
 
       if (!isCorrect) {
-        console.log('Incorrect answer, game over');
+        gameLogger.debug('Incorrect answer, game over');
         return {
           ...state,
           isPlaying: false,
@@ -83,7 +81,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       }
 
       const newScore = state.score + calculateScore(state.level, state.streak);
-      console.log('Correct answer! New score:', newScore);
+      gameLogger.debug('Correct answer! New score:', newScore);
 
       return {
         ...state,
@@ -96,7 +94,7 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
       };
     }
     case 'END_GAME':
-      console.log('Ending game with score:', state.score);
+      gameLogger.end(state.score);
       return {
         ...state,
         isPlaying: false,
@@ -109,6 +107,8 @@ const gameReducer = (state: GameState, action: GameAction): GameState => {
 };
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
+
+export { GameContext };
 
 export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(gameReducer, initialState);
@@ -128,15 +128,15 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     const saveScore = async () => {
       if (state.gameOver && state.score > 0) {
-        console.log('Attempting to save final score:', {
+        gameLogger.debug('Attempting to save final score:', {
           score: state.score,
           difficulty: state.difficulty
         });
         try {
           await submitScore(state.score, state.difficulty);
-          console.log('Score saved successfully');
+          gameLogger.info('Score saved successfully');
         } catch (error) {
-          console.error('Failed to save score:', error);
+          gameLogger.error('save-score', error as Error);
         }
       }
     };
@@ -145,19 +145,19 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, [state.gameOver, state.score, state.difficulty, submitScore]);
 
   const startGame = (config: GameConfig) => {
-    console.log('Starting game with config:', config);
+    gameLogger.debug('Starting game with config:', config);
     dispatch({ type: 'START_GAME', config });
   };
 
   const submitAnswer = (answer: number) => {
     if (state.waitingForGuess) {
-      console.log('Submitting answer:', answer);
+      gameLogger.debug('Submitting answer:', answer);
       dispatch({ type: 'SUBMIT_ANSWER', answer });
     }
   };
 
   const endGame = () => {
-    console.log('Manually ending game');
+    gameLogger.debug('Manually ending game');
     dispatch({ type: 'END_GAME' });
   };
 
@@ -168,42 +168,3 @@ export const GameProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-export const useGame = () => {
-  const context = useContext(GameContext);
-  if (!context) {
-    throw new Error('useGame must be used within a GameProvider');
-  }
-  return context;
-};
-
-// Helper functions
-const generateSequence = (config: GameConfig): number[] => {
-  const sequence: number[] = [];
-  const { numbersCount, difficulty } = config;
-
-  for (let i = 0; i < numbersCount; i++) {
-    let number: number;
-    switch (difficulty) {
-      case 'easy':
-        number = Math.floor(Math.random() * 10) + 1; // 1-10
-        break;
-      case 'medium':
-        number = Math.floor(Math.random() * 20) + 1; // 1-20
-        break;
-      case 'hard':
-        number = Math.floor(Math.random() * 50) + 1; // 1-50
-        break;
-    }
-    sequence.push(number);
-  }
-
-  return sequence;
-};
-
-const calculateScore = (level: number, streak: number): number => {
-  const baseScore = 100;
-  const levelMultiplier = 1.5;
-  const streakBonus = Math.floor(streak / 3) * 50;
-
-  return Math.floor(baseScore * Math.pow(levelMultiplier, level - 1) + streakBonus);
-};

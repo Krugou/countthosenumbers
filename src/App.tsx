@@ -6,6 +6,7 @@ import { Leaderboard } from './components/Leaderboard';
 import { useGameSettings } from './hooks/useGameSettings';
 import { useAuth } from './hooks/useAuth';
 import { AuthModal } from './components/AuthModal';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 function App() {
   const { settings } = useGameSettings();
@@ -21,66 +22,70 @@ function App() {
   };
 
   return (
-    <GameProvider>
-      <div className="min-h-screen bg-gray-900 text-white p-8">
-        <header className="mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-4xl font-bold">Count Those Numbers</h1>
-            {user ? (
-              <div className="flex items-center gap-4">
-                <span className="text-gray-400">
-                  Playing as: <span className="text-white">{isAnonymous ? 'Guest' : user.email}</span>
-                </span>
+    <ErrorBoundary>
+      <GameProvider>
+        <div className="min-h-screen bg-gray-900 text-white p-8">
+          <header className="mb-8">
+            <div className="flex justify-between items-center mb-4">
+              <h1 className="text-4xl font-bold">Count Those Numbers</h1>
+              {user ? (
+                <div className="flex items-center gap-4">
+                  <span className="text-gray-400" aria-label="Current user">
+                    Playing as: <span className="text-white">{isAnonymous ? 'Guest' : user.email}</span>
+                  </span>
+                  <button
+                    onClick={handleAuthAction}
+                    className="button-secondary"
+                    aria-label="Sign out of account"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
                 <button
                   onClick={handleAuthAction}
                   className="button-secondary"
+                  aria-label="Sign in or create account"
                 >
-                  Logout
+                  Login / Register
                 </button>
-              </div>
-            ) : (
-              <button
-                onClick={handleAuthAction}
-                className="button-secondary"
-              >
-                Login / Register
-              </button>
-            )}
-          </div>
-          <p className="text-gray-400">
-            Test your memory with this fun number sequence game!
-          </p>
-        </header>
-
-        <main className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left column - Game Controls */}
-            <div className="lg:col-span-1">
-              <GameControls />
+              )}
             </div>
+            <p className="text-gray-400">
+              Test your memory with this fun number sequence game!
+            </p>
+          </header>
 
-            {/* Middle column - Game Scene */}
-            <div className="lg:col-span-1 aspect-square">
-              <WebGameDisplay />
+          <main className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Left column - Game Controls */}
+              <section className="lg:col-span-1" aria-label="Game settings and controls">
+                <GameControls />
+              </section>
+
+              {/* Middle column - Game Scene */}
+              <section className="lg:col-span-1 aspect-square" aria-label="Game display area">
+                <WebGameDisplay />
+              </section>
+
+              {/* Right column - Leaderboard */}
+              <aside className="lg:col-span-1" aria-label="Leaderboard">
+                <Leaderboard difficulty={settings.difficulty} />
+              </aside>
             </div>
+          </main>
 
-            {/* Right column - Leaderboard */}
-            <div className="lg:col-span-1">
-              <Leaderboard difficulty={settings.difficulty} />
-            </div>
-          </div>
-        </main>
+          <footer className="mt-8 text-center text-gray-400">
+            <p>&copy; 2024 Count Those Numbers. All rights reserved.</p>
+          </footer>
 
-        <footer className="mt-8 text-center text-gray-400">
-          <p>&copy; 2024 Count Those Numbers. All rights reserved.</p>
-        </footer>
-
-        <AuthModal
-          isOpen={showAuthModal}
-          onClose={() => setShowAuthModal(false)}
-        />
-      </div>
-    </GameProvider>
+          <AuthModal
+            isOpen={showAuthModal}
+            onClose={() => setShowAuthModal(false)}
+          />
+        </div>
+      </GameProvider>
+    </ErrorBoundary>
   );
 }
 
