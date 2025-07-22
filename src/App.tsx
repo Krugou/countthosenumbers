@@ -30,12 +30,13 @@ function App() {
               <h1 className="text-4xl font-bold">Count Those Numbers</h1>
               {user ? (
                 <div className="flex items-center gap-4">
-                  <span className="text-gray-400">
+                  <span className="text-gray-400" aria-label="Current user">
                     Playing as: <span className="text-white">{isAnonymous ? 'Guest' : user.email}</span>
                   </span>
                   <button
                     onClick={handleAuthAction}
                     className="button-secondary"
+                    aria-label="Sign out of account"
                   >
                     Logout
                   </button>
@@ -44,6 +45,7 @@ function App() {
                 <button
                   onClick={handleAuthAction}
                   className="button-secondary"
+                  aria-label="Sign in or create account"
                 >
                   Login / Register
                 </button>
@@ -57,19 +59,19 @@ function App() {
           <main className="container mx-auto max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Left column - Game Controls */}
-              <div className="lg:col-span-1">
+              <section className="lg:col-span-1" aria-label="Game settings and controls">
                 <GameControls />
-              </div>
+              </section>
 
               {/* Middle column - Game Scene */}
-              <div className="lg:col-span-1 aspect-square">
+              <section className="lg:col-span-1 aspect-square" aria-label="Game display area">
                 <WebGameDisplay />
-              </div>
+              </section>
 
               {/* Right column - Leaderboard */}
-              <div className="lg:col-span-1">
+              <aside className="lg:col-span-1" aria-label="Leaderboard">
                 <Leaderboard difficulty={settings.difficulty} />
-              </div>
+              </aside>
             </div>
           </main>
 

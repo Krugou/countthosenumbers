@@ -1,18 +1,22 @@
 import React from 'react';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import { Difficulty } from '../types/game';
+import { LoadingSkeleton } from './LoadingSkeleton';
 
 interface LeaderboardProps {
   difficulty: Difficulty;
 }
 
-export const Leaderboard: React.FC<LeaderboardProps> = ({ difficulty }) => {
+export const Leaderboard: React.FC<LeaderboardProps> = React.memo(({ difficulty }) => {
   const { topScores, loading, error } = useLeaderboard(difficulty);
 
   if (loading) {
     return (
       <div className="p-4 bg-gray-800 rounded-lg shadow-lg" aria-label="Loading leaderboard">
-        <div className="text-white text-center">Loading...</div>
+        <h2 className="text-xl text-white mb-4 text-center">
+          Leaderboard - {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+        </h2>
+        <LoadingSkeleton count={5} height="h-16" className="space-y-2" />
       </div>
     );
   }
@@ -65,4 +69,4 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ difficulty }) => {
       )}
     </div>
   );
-};
+});
