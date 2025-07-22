@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { Number3D } from './Number3D';
 import { Vector3, Scene } from 'three';
-import { useGame } from '../contexts/GameContext';
+import { useGame } from '../hooks/useGame';
 import { useGameSettings } from '../hooks/useGameSettings';
 
 export const GameScene: React.FC = () => {

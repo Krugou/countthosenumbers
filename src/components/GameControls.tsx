@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { useGame } from '../contexts/GameContext';
+import { useGame } from '../hooks/useGame';
 import { useGameSettings } from '../hooks/useGameSettings';
 import { useSound } from '../utils/sound';
 import { GameConfig, Difficulty, VisualStyle } from '../types/game';
+import { logger } from '../utils/logger';
+import { validateNumberInput } from '../utils/validation';
 
 export const GameControls: React.FC = () => {
   const { state, startGame, submitAnswer, endGame } = useGame();
@@ -17,11 +19,13 @@ export const GameControls: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const number = parseInt(inputValue, 10);
-    if (!isNaN(number)) {
+    const validation = validateNumberInput(inputValue);
+    if (validation.isValid && validation.number !== undefined) {
       playSound('click');
-      submitAnswer(number);
+      submitAnswer(validation.number);
       setInputValue('');
+    } else {
+      logger.warn('Invalid number input:', inputValue);
     }
   };
 
@@ -29,7 +33,7 @@ export const GameControls: React.FC = () => {
     key: K,
     value: GameConfig[K]
   ) => {
-    console.log(`Changing ${key} to:`, value);
+    logger.debug(`Changing ${key} to:`, value);
     playSound('click');
     updateSettings({ [key]: value });
   };
@@ -74,7 +78,7 @@ export const GameControls: React.FC = () => {
             className="w-full bg-gray-700 text-white rounded p-2"
             value={settings.visualStyle}
             onChange={(e) => {
-              console.log('Visual style change event:', e.target.value);
+              logger.debug('Visual style change event:', e.target.value);
               handleSettingChange('visualStyle', e.target.value as VisualStyle);
             }}
             disabled={state.isPlaying || state.waitingForGuess}

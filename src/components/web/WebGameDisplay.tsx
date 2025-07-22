@@ -109,7 +109,7 @@ export const WebGameDisplay: React.FC = () => {
     </div>
   );
 
-  const renderControls = (onStart: () => void, onEnd: () => void) => (
+  const renderControls = (onStart: () => void, _onEnd: () => void) => (
     <div className="absolute inset-0 flex items-center justify-center">
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
         <button
