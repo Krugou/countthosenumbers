@@ -3,16 +3,19 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "web",
     "mobile",
     "shared",
     "desktop"
   ],
   "scripts": {
-    "web": "npm run dev --workspace=web",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "web": "npm run dev",
     "mobile": "npm run start --workspace=mobile",
     "desktop": "npm run tauri dev --workspace=desktop",
-    "build:web": "npm run build --workspace=web",
+    "build:web": "npm run build",
     "build:shared": "npm run build --workspace=shared",
     "build:desktop": "npm run tauri build --workspace=desktop"
   },

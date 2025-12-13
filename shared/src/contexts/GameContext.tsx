@@ -222,7 +222,8 @@ export const GameCore: React.FC<GameCoreProps> = ({
       type: 'START_GAME',
       config: {
         difficulty: 'medium',
-        operation: 'addition',
+        numbersCount: 5,
+        operations: 'addition',
         visualStyle: 'numbers'
       }
     });
@@ -237,7 +238,8 @@ export const GameCore: React.FC<GameCoreProps> = ({
       type: 'START_GAME',
       config: {
         difficulty: 'medium',
-        operation: 'addition',
+        numbersCount: 5,
+        operations: 'addition',
         visualStyle: 'numbers'
       }
     });
