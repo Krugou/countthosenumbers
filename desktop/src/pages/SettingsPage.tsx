@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGameSettings } from '@countthosenumbers/shared';
+import type { Difficulty, Operation, VisualStyle } from '@countthosenumbers/shared';
 
 export const SettingsPage: React.FC = () => {
   const { settings, updateSettings } = useGameSettings();
@@ -23,7 +24,7 @@ export const SettingsPage: React.FC = () => {
             <label className="block text-lg mb-2">Difficulty</label>
             <select
               value={settings.difficulty}
-              onChange={(e) => updateSettings({ difficulty: e.target.value as any })}
+              onChange={(e) => updateSettings({ difficulty: e.target.value as Difficulty })}
               className="w-full bg-gray-800 text-white rounded-lg p-3"
             >
               <option value="easy">Easy</option>
@@ -48,7 +49,7 @@ export const SettingsPage: React.FC = () => {
             <label className="block text-lg mb-2">Operations</label>
             <select
               value={settings.operations}
-              onChange={(e) => updateSettings({ operations: e.target.value as any })}
+              onChange={(e) => updateSettings({ operations: e.target.value as Operation })}
               className="w-full bg-gray-800 text-white rounded-lg p-3"
             >
               <option value="addition">Addition Only</option>
@@ -61,7 +62,7 @@ export const SettingsPage: React.FC = () => {
             <label className="block text-lg mb-2">Visual Style</label>
             <select
               value={settings.visualStyle}
-              onChange={(e) => updateSettings({ visualStyle: e.target.value as any })}
+              onChange={(e) => updateSettings({ visualStyle: e.target.value as VisualStyle })}
               className="w-full bg-gray-800 text-white rounded-lg p-3"
             >
               <option value="minimal">Minimal</option>
