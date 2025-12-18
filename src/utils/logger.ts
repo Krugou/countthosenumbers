@@ -60,6 +60,8 @@ export const gameLogger = {
     logger.debug('Answer submitted', { answer, correct, isCorrect }),
   end: (score: number) => logger.info('Game ended', { score }),
   error: (context: string, error: Error) => logger.error(`Game error [${context}]`, error),
+  debug: (message: string, ...args: unknown[]) => logger.debug(message, ...args),
+  info: (message: string, ...args: unknown[]) => logger.info(message, ...args),
 };
 
 export const authLogger = {
