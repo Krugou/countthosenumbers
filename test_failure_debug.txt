@@ -1,0 +1,92 @@
+
+Running 1 test using 1 worker
+
+[1A[2K[1/1] [chromium] ÔÇ║ tests\app.spec.ts:3:1 ÔÇ║ app loads and settings page accessible
+[1A[2K[chromium] ÔÇ║ tests\app.spec.ts:3:1 ÔÇ║ app loads and settings page accessible
+Navigating to http://localhost:5173/countthosenumbers/...
+
+[1A[2KBROWSER CONSOLE: error: Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+
+[1A[2KBROWSER CONSOLE: debug: [vite] connecting...
+
+[1A[2KWaiting for #root to be visible...
+
+[1A[2KBROWSER CONSOLE: debug: [vite] connected.
+
+[1A[2KBROWSER CONSOLE: log: [vite] server connection lost. Polling for restart...
+
+[1A[2KBROWSER CONSOLE: debug: [vite] connecting...
+
+[1A[2KBROWSER CONSOLE: debug: [vite] connected.
+
+[1A[2KBROWSER CONSOLE: info: %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+
+[1A[2KBROWSER CONSOLE: error: Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[1A[2KBROWSER CONSOLE: error: Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[1A[2KBROWSER CONSOLE: error: Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[1A[2KBROWSER CONSOLE: error: Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[1A[2KBROWSER CONSOLE: error: Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[1A[2KBROWSER CONSOLE: log: Settings updated: {difficulty: medium, numbersCount: 5, operations: addition, visualStyle: minimal}
+
+[1A[2KBROWSER CONSOLE: log: Settings updated: {difficulty: medium, numbersCount: 5, operations: addition, visualStyle: minimal}
+
+[1A[2KBROWSER CONSOLE: log: Settings updated: {difficulty: medium, numbersCount: 5, operations: addition, visualStyle: minimal}
+
+[1A[2KBROWSER CONSOLE: log: Setting up leaderboard listener for difficulty: medium
+
+[1A[2KBROWSER CONSOLE: log: Setting up leaderboard listener for difficulty: medium
+
+[1A[2KBROWSER CONSOLE: log: Settings updated: {difficulty: medium, numbersCount: 5, operations: addition, visualStyle: minimal}
+
+[1A[2KBROWSER CONSOLE: log: Settings updated: {difficulty: medium, numbersCount: 5, operations: addition, visualStyle: minimal}
+
+[1A[2KBROWSER CONSOLE: log: Settings updated: {difficulty: medium, numbersCount: 5, operations: addition, visualStyle: minimal}
+
+[1A[2KBROWSER CONSOLE: log: Settings updated: {difficulty: medium, numbersCount: 5, operations: addition, visualStyle: minimal}
+
+[1A[2KBROWSER CONSOLE: log: Setting up leaderboard listener for difficulty: medium
+
+[1A[2KBROWSER CONSOLE: log: Setting up leaderboard listener for difficulty: medium
+
+[1A[2KBROWSER CONSOLE: log: Settings updated: {difficulty: medium, numbersCount: 5, operations: addition, visualStyle: minimal}
+
+[1A[2K  1) [chromium] ÔÇ║ tests\app.spec.ts:3:1 ÔÇ║ app loads and settings page accessible ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator:  locator('#root')
+    Expected: visible
+    Received: hidden
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 30000ms[22m
+    [2m  - waiting for locator('#root')[22m
+    [2m    32 ├ù locator resolved to <div id="root"></div>[22m
+    [2m       - unexpected value "hidden"[22m
+    [2m    - waiting for" http://localhost:5173/countthosenumbers/" navigation to finish...[22m
+    [2m    - navigated to "http://localhost:5173/countthosenumbers/"[22m
+    [2m    - locator resolved to <div id="root"></div>[22m
+    [2m    - unexpected value "hidden"[22m
+
+
+      13 |   // Wait for root to be visible
+      14 |   console.log('Waiting for #root to be visible...');
+    > 15 |   await expect(page.locator('#root')).toBeVisible({ timeout: 30000 });
+         |                                       ^
+      16 |
+      17 |   // Check title
+      18 |   console.log('Checking title...');
+        at C:\Users\moxch\Documents\GitHub\countthosenumbers\tests\app.spec.ts:15:39
+
+    Error Context: test-results\app-app-loads-and-settings-page-accessible-chromium\error-context.md
+
+
+[1A[2K  1 failed
+    [chromium] ÔÇ║ tests\app.spec.ts:3:1 ÔÇ║ app loads and settings page accessible ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ

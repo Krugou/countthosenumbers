@@ -1,0 +1,36 @@
+
+Running 1 test using 1 worker
+
+[1A[2K[1/1] [chromium] ÔÇ║ tests\app.spec.ts:3:1 ÔÇ║ app loads and settings page accessible
+[1A[2K  1) [chromium] ÔÇ║ tests\app.spec.ts:3:1 ÔÇ║ app loads and settings page accessible ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator:  locator('body')
+    Expected: visible
+    Received: hidden
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('body')[22m
+    [2m    9 ├ù locator resolved to <body>ÔÇª</body>[22m
+    [2m      - unexpected value "hidden"[22m
+
+
+       7 |
+       8 |   // Check for body visibility
+    >  9 |   await expect(page.locator('body')).toBeVisible();
+         |                                      ^
+      10 |
+      11 |   // 2. Navigate to Settings
+      12 |   // Navigate directly to /settings (prefixed with base)
+        at C:\Users\moxch\Documents\GitHub\countthosenumbers\tests\app.spec.ts:9:38
+
+    Error Context: test-results\app-app-loads-and-settings-page-accessible-chromium\error-context.md
+
+
+[1A[2K  1 failed
+    [chromium] ÔÇ║ tests\app.spec.ts:3:1 ÔÇ║ app loads and settings page accessible ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ
+
+[36m  Serving HTML report at http://localhost:9323. Press Ctrl+C to quit.[39m
